@@ -1,0 +1,23 @@
+创建项目
+    django-admin startproject project
+
+创建app
+    django-admin startapp app
+
+启动项目
+    python manager.py runserver
+
+
+迁移项目
+    python manager.py migrate
+
+初始化model
+    python manager.py makemigrations app
+    python manager.py sqlmigrate app 0001
+    python manager.py migrate
+
+可交互shell
+    python manager.py shell
+
+新建超级用户
+    python manager.py createsuperuser

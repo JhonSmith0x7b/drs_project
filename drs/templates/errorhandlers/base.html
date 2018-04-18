@@ -1,0 +1,17 @@
+{% load static %}
+<html>
+    <head>
+        <title>{% block title %}ERROR!{% endblock %}</title>
+    </head>
+    <body>
+        {% block content %}
+            {{ message | safe }}
+        {% endblock %}
+    </body>
+
+    {% block script %}
+    {% endblock %}
+    
+    {% block css %}
+    {% endblock %}
+</html>

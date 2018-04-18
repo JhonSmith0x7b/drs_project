@@ -1,0 +1,4 @@
+django==2.0.4
+mysqlclient==1.3.12
+ipaddress==1.0.22
+xlrd==1.1.0

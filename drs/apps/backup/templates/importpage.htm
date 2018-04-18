@@ -1,0 +1,19 @@
+{% extends 'base.htm' %}
+
+{% block title %}IMPORT PAGE{% endblock %}
+
+{% block content %}
+    <form action="/backupctrl/importation" method="POST" enctype="multipart/form-data">
+        <br><br>
+        <input type="file" id="file_input" name="myfile">
+        <br><br>
+        <button type="submit">upload file</button>
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script>
+        file_input = $('#file_input')
+        btn = $('#btn')
+    </script>
+{% endblock %}
