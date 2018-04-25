@@ -1,3 +1,11 @@
+TODO:
+    解决: received a naive datetime (1990-11-26 00:00:00) while time zone supportis active.
+    BackupCtrl 修改 BACKUP_STATUS 未备份状态
+    BackupCtrl 指定区间 splitfield列 约定 condition;begin_end
+    BackupCtrl 条件查询  splitefield 直接写 where 语句
+    BackupCtrl 切片要备份历史数据, 备份到`数据开始日期`
+
+
 创建项目
     django-admin startproject project
 
@@ -5,19 +13,35 @@
     django-admin startapp app
 
 启动项目
-    python manager.py runserver
+    python manage.py runserver
 
 
 迁移项目
-    python manager.py migrate
+    python manage.py migrate
 
 初始化model
-    python manager.py makemigrations app
-    python manager.py sqlmigrate app 0001
-    python manager.py migrate
+    python manage.py makemigrations app
+    python manage.py sqlmigrate app 0001
+    python manage.py migrate
 
 可交互shell
-    python manager.py shell
+    python manage.py shell
+    >>> import django
+    >>> django.setup()
 
 新建超级用户
-    python manager.py createsuperuser
+    python manage.py createsuperuser
+
+model操作
+    获得fields信息  model._meta.fields
+    获得名称, 类型  model._meta.fields.name, model._meta.fields.get_internal_type()
+
+TestCase
+    python manage.py test app 测试方法需要test开头 app填写根目录开始的完整路径
+
+Django 时区日期
+    django.utils.timezone .now() 返回datetime对象, 附带时区信息
+
+时间相关处理
+    calendar包, 可以获得月份范围(包括闰年等判断) calendar.monthrange(2020, 10)
+    dateutil包, 可以delta日期 dateutil.relativedelta.relativedelta(months=-1)

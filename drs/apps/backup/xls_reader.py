@@ -6,7 +6,7 @@ import xlrd
 from django.utils import timezone
 from datetime import datetime
 from collections import OrderedDict
-import ipaddress
+from django.core.validators import validate_ipv46_address
 
 
 class BaseMapperType(object):
@@ -133,9 +133,9 @@ class MapperIp(BaseMapperType):
             return None
         elif cell_type == 1:
             try:
-                ipaddress.ip_address(cell_value)
+                validate_ipv46_address(cell_value)
                 return cell_value
-            except ValueError:
+            except:
                 return False
         pass
 

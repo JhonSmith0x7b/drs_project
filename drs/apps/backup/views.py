@@ -10,10 +10,10 @@ logger = Logger()
 
 def hello(request):
     logger.debug('123000')
-    return render(request, 'index.htm')
+    return render(request, 'index.html')
 
 def importpage(request):
-    return render(request, 'importpage.htm')
+    return render(request, 'importpage.html')
 
 def backupctrl_import(request):
     if request.method == 'POST':

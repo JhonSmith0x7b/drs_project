@@ -1,6 +1,6 @@
 from django.db import models
 
-__author__ = 'bchen'
+__author__ = 'bchen, wx'
 
 # Create your models here.
 from django.utils import timezone
@@ -23,9 +23,9 @@ class BackupCtrl(models.Model):
         ('6', u'指定条件'),
     )
     BACKUP_STATUS = (
-        ('0', u'备份失败'),
+        ('0', u'未备份'),
         ('1', u'备份成功'),
-        ('2', u'备份中'),
+        ('2', u'备份失败'),
     )
     Fid = models.BigAutoField(primary_key=True, verbose_name='ID')
     Fschema = models.CharField(max_length=128, default='', verbose_name=u'库名')
@@ -39,7 +39,7 @@ class BackupCtrl(models.Model):
     Flast_date = models.DateField(default=timezone.datetime(1990,11,26), verbose_name=u'最后一次备份日期')
     Fpriority = models.CharField(max_length=1, default='0', verbose_name=u'优先级')
     Fserver_ip = models.GenericIPAddressField(null=True, verbose_name=u'备份服务器IP地址')
-    Fserver_info = models.CharField(default='Backup001', max_length=32, verbose_name=u'服务器描述')
+    Fserver_info = models.CharField(null=True, max_length=32, verbose_name=u'服务器描述')
     Fmodify_time = models.DateTimeField(default=timezone.now, verbose_name=u'变更时间')
 
 
@@ -51,9 +51,9 @@ class FileInfo(models.Model):
         ordering = ['-Fdate']
 
     EXPORT_STATUS = (
-        ('0', u'导出失败'),
+        ('0', u'未导出'),
         ('1', u'导出成功'),
-        ('2', u'导出中'),
+        ('2', u'导出失败'),
     )
 
     Fid = models.BigAutoField(primary_key=True, verbose_name='ID')
