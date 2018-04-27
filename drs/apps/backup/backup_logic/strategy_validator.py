@@ -2,7 +2,7 @@
 
 __author__ = 'wx'
 
-from .models import BackupCtrl
+from drs.apps.backup.models import BackupCtrl
 from collections import OrderedDict
 from datetime import datetime
 from datetime import date

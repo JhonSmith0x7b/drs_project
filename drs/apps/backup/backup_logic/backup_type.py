@@ -2,7 +2,7 @@
 
 __author__ = 'wx'
 
-from .models import BackupCtrl
+from drs.apps.backup.models import BackupCtrl
 from drs.utils.logger import Logger
 from datetime import timedelta, datetime, date
 from django.utils import timezone
@@ -52,7 +52,11 @@ class AllBackup(BaseBackupType):
         fdata_begin_date = backupctrl.Fdata_begin_date
         fsplit_field = backupctrl.Fsplit_field
         sql_date = self.convertdata(fdata_begin_date)
-        return f' where  {fsplit_field} >= {sql_date} '
+        sql = f' where  {fsplit_field} >= {sql_date} '
+        db_name = backupctrl.Fschema
+        table_name = backupctrl.Ftable_name
+        filename = f'{db_name}.{table_name}.all.txt'
+        return (filename, sql)
 
 class DayBackup(BaseBackupType):
     
@@ -86,7 +90,10 @@ class DayBackup(BaseBackupType):
             while True:
                 sql_date = self.convertdata(next_date)
                 sql = f' where {fsplit_field} = {sql_date} '
-                results.append(sql)
+                db_name = backupctrl.Fschema
+                table_name = backupctrl.Ftable_name
+                filename = f'{db_name}.{table_name}.day.{sql_date}.txt'
+                results.append((filename, sql))
                 if next_date == yesterday:
                     break
                 else:
@@ -128,7 +135,10 @@ class MonthBackup(BaseBackupType):
                 sql_date_begin = self.convertdata(next_month.replace(day=1))
                 sql_date_end = self.convertdata(next_month.replace(day=month_range))
                 sql = f' where {fsplit_field} >= {sql_date_begin} and {fsplit_field} <= {sql_date_end} '
-                results.append(sql)
+                db_name = backupctrl.Fschema
+                table_name = backupctrl.Ftable_name
+                filename = f'{db_name}.{table_name}.month.{sql_date_begin[:-2]}.txt'
+                results.append((filename, sql))
                 if next_month == yesterday_month:
                     break
                 else:
@@ -170,7 +180,10 @@ class YearBackup(BaseBackupType):
                 sql_date_begin = self.convertdata(next_year.replace(day=1, month=1))
                 sql_date_end = self.convertdata(next_year.replace(day=31, month=12))
                 sql = f' where {fsplit_field} >= {sql_date_begin} and {fsplit_field} <= {sql_date_end} '
-                results.append(sql)
+                db_name = backupctrl.Fschema
+                table_name = backupctrl.Ftable_name
+                filename = f'{db_name}.{table_name}.year.{next_year.year}.txt'
+                results.append((filename, sql))
                 if next_year == last_year:
                     break
                 else:
@@ -200,7 +213,10 @@ class RangeBackup(BaseBackupType):
             condition, dates = fsplit_field.split(';')
             begin_date, end_date = dates.split('_')
             sql = f' where  {condition} >= {begin_date} and {condition} <= {end_date} '
-            return sql
+            db_name = backupctrl.Fschema
+            table_name = backupctrl.Ftable_name
+            filename = f'{db_name}.{table_name}.range.{dates}.txt'
+            return (filename, sql)
         except:
             return False
 
@@ -229,9 +245,13 @@ class ZipperBackup(BaseBackupType):
             return None 
         else:
             sql = f' where {fsplit_field} >= {begin_date} and {fsplit_field} <= {yesterday} '
-            results.append(sql)
+            db_name = backupctrl.Fschema
+            table_name = backupctrl.Ftable_name
+            filename = f'{db_name}.{table_name}.zipper.now.txt'
+            results.append((filename, sql))
             sql = f' where {fsplit_field} > {yesterday} '
-            results.append(sql)
+            filename = f'{db_name}.{table_name}.zipper.future.txt'
+            results.append((filename, sql))
         return results
 
 class ConditionBackup(BaseBackupType):
@@ -249,4 +269,7 @@ class ConditionBackup(BaseBackupType):
     
     def gen(self, backupctrl):
         fsplit_field = backupctrl.Fsplit_field
-        return fsplit_field
+        db_name = backupctrl.Fschema
+        table_name = backupctrl.Ftable_name
+        filename = f'{db_name}.{table_name}.special.txt'
+        return (filename, fsplit_field)

@@ -4,7 +4,7 @@ TODO:
     BackupCtrl 指定区间 splitfield列 约定 condition;begin_end
     BackupCtrl 条件查询  splitefield 直接写 where 语句
     BackupCtrl 切片要备份历史数据, 备份到`数据开始日期`
-
+    文件名, 在生成where条件的时候一并返回
 
 创建项目
     django-admin startproject project

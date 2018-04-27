@@ -81,7 +81,21 @@ WSGI_APPLICATION = 'drs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = config.databases
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': config.db_name,
+            'USER': config.db_user,
+            'PASSWORD': config.db_pwd,
+            'HOST': config.db_host,
+            'PORT': config.db_port,
+            'TEST': {
+                'NAME': 'test_drs',
+                'CHARSET': 'utf8',
+                'COLLATION': 'utf8_general_ci',
+            },
+        }
+    }
 
 
 # Password validation

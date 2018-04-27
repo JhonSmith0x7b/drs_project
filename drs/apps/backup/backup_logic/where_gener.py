@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 
-from .backup_type import AllBackup, DayBackup, MonthBackup, YearBackup, RangeBackup, ZipperBackup, ConditionBackup
+from drs.apps.backup.backup_logic.backup_type import AllBackup, DayBackup, MonthBackup, YearBackup, RangeBackup, ZipperBackup, ConditionBackup
 
 __author__ = 'wx'
 
@@ -9,22 +9,10 @@ class Gener(object):
     """where条件生成类, 根据backupType进行不同的组装与生成
     """
 
-    def __init__(self, groups):
-        self._groups = groups
-    
-    def gen(self):
-        for key in self._groups:
-            results = []
-            for backupctrl in self._groups[key]:
-                result = self.__gen(backupctrl)
-                if isinstance(result, list):    #返回复数sql为数组, 单独sql为对象
-                    results += result
-                else:
-                    results.append(result)
-            self._groups[key] = results
-        print(self._groups)
-
-    def __gen(self, backupctrl):
+    def __init__(self):
+        pass
+        
+    def gen(self, backupctrl):
         ftype = backupctrl.Ftype
         backuptype = None
         if ftype == '0':

@@ -2,10 +2,10 @@
 
 __author__ = 'wx'
 
-from .models import BackupCtrl
+from drs.apps.backup.models import BackupCtrl
 from drs.utils.logger import Logger
 from django.utils import timezone
-from .backup_type import AllBackup, DayBackup, MonthBackup, YearBackup, RangeBackup, ZipperBackup, ConditionBackup
+from drs.apps.backup.backup_logic.backup_type import AllBackup, DayBackup, MonthBackup, YearBackup, RangeBackup, ZipperBackup, ConditionBackup
 
 logger = Logger()
 

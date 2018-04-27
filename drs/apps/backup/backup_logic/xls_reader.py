@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 __author__ = 'wx'
 
-from .models import BackupCtrl
+from drs.apps.backup.models import BackupCtrl
 import xlrd
 from django.utils import timezone
 from datetime import datetime

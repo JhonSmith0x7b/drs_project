@@ -2,7 +2,7 @@ from django.shortcuts import render
 from drs.utils.logger import Logger
 from drs.exceptions.request_error import RequestError
 from drs.middlewares import http
-from .xls_reader import Reader, PullBackupCtrlViaXls
+from drs.apps.backup.backup_logic.xls_reader import Reader, PullBackupCtrlViaXls
 from django.template import loader
 from django.http import HttpResponse
 
